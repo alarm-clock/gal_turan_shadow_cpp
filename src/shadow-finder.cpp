@@ -114,14 +114,13 @@ std::vector<shadow> find_shadows(const graph &G, unsigned int k)
 
         for(const auto& kv: working_tuple.g.adj)
         {
-  
             u_long node = kv.first;
 
             auto neighbors = dag.neighbours(node);
             if(neighbors.empty()) continue;
 
             graph out_neighborhood = G.induced_subgraph(neighbors);
-            if(out_neighborhood.number_of_nodes() <  1) continue;
+            if(out_neighborhood.number_of_nodes() < working_tuple.k - 2) continue;
             
             if( working_tuple.k <= 2 || calc_edge_density(out_neighborhood) > 1.0 - (1.0 / static_cast<double>(working_tuple.k - 2)))
             {
